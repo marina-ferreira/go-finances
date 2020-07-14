@@ -18,6 +18,7 @@ export const Container = styled.div<ContainerProps>`
 
     nav {
       a {
+        padding: 7.5px 0;
         color: #fff;
         text-decoration: none;
         font-size: 16px;
