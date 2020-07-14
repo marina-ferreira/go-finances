@@ -9,6 +9,7 @@ import api from 'services/api'
 import Header from 'components/Header'
 
 import formatValue from 'utils/formatValue'
+import formatDate from 'utils/formatDate'
 
 import { Container, CardContainer, Card, TableContainer } from './styles'
 
@@ -30,12 +31,15 @@ interface Balance {
 }
 
 const Dashboard: React.FC = () => {
-  // const [transactions, setTransactions] = useState<Transaction[]>([]);
-  // const [balance, setBalance] = useState<Balance>({} as Balance);
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [balance, setBalance] = useState<Balance>({} as Balance)
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
-      // TODO
+      const response = await api.get('/transactions')
+
+      setBalance(response.data.balance)
+      setTransactions(response.data.transactions)
     }
 
     loadTransactions()
@@ -48,14 +52,14 @@ const Dashboard: React.FC = () => {
         <CardContainer>
           <Card>
             <header>
-              <p>Entradas</p>
+              <p>Income</p>
               <img src={income} alt="Income" />
             </header>
             <h1 data-testid="balance-income">R$ 5.000,00</h1>
           </Card>
           <Card>
             <header>
-              <p>Saídas</p>
+              <p>Outcome</p>
               <img src={outcome} alt="Outcome" />
             </header>
             <h1 data-testid="balance-outcome">R$ 1.000,00</h1>
@@ -73,26 +77,24 @@ const Dashboard: React.FC = () => {
           <table>
             <thead>
               <tr>
-                <th>Título</th>
-                <th>Preço</th>
-                <th>Categoria</th>
-                <th>Data</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Date</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr>
-                <td className="title">Computer</td>
-                <td className="income">R$ 5.000,00</td>
-                <td>Sell</td>
-                <td>20/04/2020</td>
-              </tr>
-              <tr>
-                <td className="title">Website Hosting</td>
-                <td className="outcome">- R$ 1.000,00</td>
-                <td>Hosting</td>
-                <td>19/04/2020</td>
-              </tr>
+              {transactions.map(transaction => (
+                <tr key={transaction.id}>
+                  <td className="title">{transaction.title}</td>
+                  <td className={transaction.type}>
+                    {formatValue(transaction.value)}
+                  </td>
+                  <td>{transaction.category.title}</td>
+                  <td>{formatDate(transaction.created_at)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </TableContainer>
