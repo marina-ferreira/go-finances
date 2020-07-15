@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
 import api from 'services/api'
 import formatValue from 'utils/formatValue'
@@ -94,16 +95,22 @@ const Dashboard: React.FC = () => {
             </thead>
 
             <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction.id}>
-                  <td className="title">{transaction.title}</td>
-                  <td className={transaction.type}>
-                    {formatValue(transaction.value)}
-                  </td>
-                  <td>{transaction.category.title}</td>
-                  <td>{formatDate(transaction.created_at)}</td>
-                </tr>
-              ))}
+              {transactions.length > 0 ? (
+                transactions.map(transaction => (
+                  <tr key={transaction.id}>
+                    <td className="title">{transaction.title}</td>
+                    <td className={transaction.type}>
+                      {formatValue(transaction.value)}
+                    </td>
+                    <td>{transaction.category.title}</td>
+                    <td>{formatDate(transaction.created_at)}</td>
+                  </tr>
+                ))
+              ) : (
+                <TableLoader color="#5636d3">
+                  <Loader color="#5636d3" />
+                </TableLoader>
+              )}
             </tbody>
           </table>
         </TableContainer>
@@ -113,3 +120,10 @@ const Dashboard: React.FC = () => {
 }
 
 export default Dashboard
+
+const TableLoader = styled.div`
+  top: 70%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+`

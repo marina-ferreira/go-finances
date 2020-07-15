@@ -4,7 +4,7 @@ export const Loader = styled.div`
   width: 40px;
   height: 40px;
   position: relative;
-  margin: 10px auto;
+  margin: auto;
 
   .double-bounce1,
   .double-bounce2 {
