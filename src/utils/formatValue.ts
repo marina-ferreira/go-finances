@@ -4,7 +4,7 @@ const formatValue = (
 ): string => {
   const formattedValue = Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'BRL'
   }).format(value)
 
   return type === 'income' ? formattedValue : `- ${formattedValue}`
