@@ -5,6 +5,7 @@ import formatValue from 'utils/formatValue'
 import formatDate from 'utils/formatDate'
 
 import Header from 'components/Header'
+import Loader from 'components/Loader'
 
 import income from 'assets/income.svg'
 import outcome from 'assets/outcome.svg'
@@ -53,7 +54,9 @@ const Dashboard: React.FC = () => {
               <p>Income</p>
               <img src={income} alt="Income" />
             </header>
-            <h1 data-testid="balance-income">{formatValue(balance.income)}</h1>
+            <h1 data-testid="balance-income">
+              {balance.income ? formatValue(balance.income) : <Loader />}
+            </h1>
           </Card>
           <Card>
             <header>
@@ -61,7 +64,7 @@ const Dashboard: React.FC = () => {
               <img src={outcome} alt="Outcome" />
             </header>
             <h1 data-testid="balance-outcome">
-              {formatValue(balance.outcome)}
+              {balance.outcome ? formatValue(balance.outcome) : <Loader />}
             </h1>
           </Card>
           <Card total>
@@ -69,7 +72,13 @@ const Dashboard: React.FC = () => {
               <p>Total</p>
               <img src={total} alt="Total" />
             </header>
-            <h1 data-testid="balance-total">{formatValue(balance.total)}</h1>
+            <h1 data-testid="balance-total">
+              {balance.total ? (
+                formatValue(balance.total)
+              ) : (
+                <Loader color="#fafafa" />
+              )}
+            </h1>
           </Card>
         </CardContainer>
 

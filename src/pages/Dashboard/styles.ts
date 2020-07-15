@@ -24,6 +24,7 @@ export const CardContainer = styled.section`
 `
 
 export const Card = styled.div`
+  height: 144px;
   background: ${({ total }: CardProps): string => (total ? '#FF872C' : '#fff')};
   padding: 22px 32px;
   border-radius: 5px;
