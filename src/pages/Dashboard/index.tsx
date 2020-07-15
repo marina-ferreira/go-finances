@@ -96,16 +96,16 @@ const Dashboard: React.FC = () => {
 
             <tbody>
               {transactions.length > 0 ? (
-                transactions.map(transaction => (
-                  <tr key={transaction.id}>
-                    <td className="title">{transaction.title}</td>
-                    <td className={transaction.type}>
-                      {formatValue(transaction.value)}
-                    </td>
-                    <td>{transaction.category.title}</td>
-                    <td>{formatDate(transaction.created_at)}</td>
-                  </tr>
-                ))
+                transactions.map(
+                  ({ id, title, type, value, category, created_at }) => (
+                    <tr key={id}>
+                      <td className="title">{title}</td>
+                      <td className={type}>{formatValue(value, type)}</td>
+                      <td>{category.title}</td>
+                      <td>{formatDate(created_at)}</td>
+                    </tr>
+                  )
+                )
               ) : (
                 <TableLoader color="#5636d3">
                   <Loader color="#5636d3" />

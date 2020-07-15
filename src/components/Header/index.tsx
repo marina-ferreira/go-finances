@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ size = 'large' }: HeaderProps) => {
             Dashboard
           </Link>
           <Link to="/import" activeStyle={navActiveStyle}>
-            Import
+            Importar
           </Link>
         </nav>
       </header>
