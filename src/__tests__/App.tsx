@@ -185,7 +185,7 @@ describe('Dashboard', () => {
 
     await actWait(500)
 
-    fireEvent.click(getByText('Importar'))
+    fireEvent.click(getByText('Import'))
 
     await actWait()
 
@@ -195,7 +195,7 @@ describe('Dashboard', () => {
   test('should be able to upload a file', async () => {
     const { getByText, getByTestId } = render(<App />)
 
-    fireEvent.click(getByText('Importar'))
+    fireEvent.click(getByText('Import'))
 
     await actWait()
 
