@@ -84,35 +84,38 @@ const Dashboard: React.FC = () => {
         </CardContainer>
 
         <TableContainer>
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Date</th>
-              </tr>
-            </thead>
+          {transactions.length > 0 ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {transactions.length > 0 ? (
-                transactions.map(
+              <tbody>
+                {transactions.map(
                   ({ id, title, type, value, category, created_at }) => (
                     <tr key={id}>
                       <td className="title">{title}</td>
-                      <td className={type}>{formatValue(value, type)}</td>
+                      <td className={type}>
+                        {type === 'outcome' ? '- ' : ''}
+                        {formatValue(value)}
+                      </td>
                       <td>{category.title}</td>
                       <td>{formatDate(created_at)}</td>
                     </tr>
                   )
-                )
-              ) : (
-                <TableLoader color="#5636d3">
-                  <Loader color="#5636d3" />
-                </TableLoader>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          ) : (
+            <TableLoader color="#5636d3">
+              <Loader color="#5636d3" />
+            </TableLoader>
+          )}
         </TableContainer>
       </Container>
     </>
